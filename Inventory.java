@@ -1,0 +1,3 @@
+/*
+Create inventory class here
+  */
