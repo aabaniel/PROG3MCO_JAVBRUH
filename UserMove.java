@@ -5,6 +5,7 @@ public class UserMove {
     private boolean userRight;
     private int userSelection;
 
+    //setters
     public void setUserUp(boolean userUp)
     {
         this.userUp = userUp;
@@ -23,17 +24,25 @@ public class UserMove {
 
     }
 
+    //constructor
     public UserMove()
     {
+        while (true)
+        {
         int userInput = getUserInput();
         setDirection(userInput);
-
-
+        
+             if (userSelection == 5)
+             {
+              System.out.println("Exiting the Area!");
+              //call main menu 
+              break;
+             }          
+        }
     }
 
 
-
-
+    //getter
     private int getUserInput()
     {
         Scanner scanner = new Scanner(System.in);
@@ -42,6 +51,7 @@ public class UserMove {
         System.out.println("[2] DOWN\n");
         System.out.println("[3] LEFT\n");
         System.out.println("[4] RIGHT\n");
+        System.out.println("[5] EXIT AREA\n");
 
         userSelection = scanner.nextInt();
 
@@ -79,4 +89,3 @@ public class UserMove {
         }
     }
 }
-
