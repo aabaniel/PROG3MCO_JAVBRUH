@@ -70,22 +70,46 @@ public class UserMove {
             case 1: 
                 System.out.println("Going Up!");
                 userUp = true;
+
+                if(Math.random() < 0.4)
+                {
+                    //place battle shitter here
+
+                }
+
                 break;
 
             case 2: 
                 System.out.println("Going Down!");
                 userDown = true;
+                 if(Math.random() < 0.4)
+                {
+                    //place battle shitter here
+
+                }
                 break;
 
             case 3:
                 System.out.println("Going Left!");
                 userLeft = true;
+                 if(Math.random() < 0.4)
+                {
+                    //place battle shitter here
+
+                }
                 break;
             
             case 4: 
                 System.out.println("Going Right!");
                 userRight = true;
+                if(Math.random() < 0.4)
+                {
+                    //place battle shitter here
+
+                }
                 break;
         }
     }
 }
+
+
