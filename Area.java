@@ -4,48 +4,41 @@ import java.util.*;
 Create area class here
   */
 
-public class area{
-    private Integer aType;
-    private Integer areaGrid[][];
-    private Integer userGrid[][];
+public class Area {
+    private int aType;
+    private int[][] areaGrid;
+    private int xUser;
+    private int yUser;
 
-    void initializeareaGrid(int x, int y)
-    {
-        areaGrid = new Integer[x][y];
-        userGrid = new Integer[0][0];
+    public void initializeAreaGrid(int x, int y) {
+        areaGrid = new int[x][y];
+        xUser = 0; 
+        yUser = 0;
     }
-    void userMove()
-    {
-        int i = 0;
-        UserMove move = new UserMove();
+
+    public void userMove() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Which area will you go?:  ");
+        System.out.print("Which area will you go(1 or 2 or 3?: ");
         aType = sc.nextInt();
 
-        while(i == 0)
-        {
-            if(aType == 1)
-            {
-            initializeareaGrid(5, 1);
-            for(int j = 0; j < 5; j++ )
-            System.out.println("[ ]");
-            i++;
+        if (aType == 1) {
+            initializeAreaGrid(5, 1);
+
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 1; j++) {
+                    if (i == xUser && j == yUser) {
+                        System.out.print("[O]");
+                    } else {
+                        System.out.print("[ ]");
+                    }
+                }
+                System.out.println();
             }
-            /*else if(aType == 2)
-            {
-            initializeareaGrid(3, 3);
-            i++;
-            }
-            else if(aType == 3)
-            {
-            initializeareaGrid(4, 4);
-            i++;
-            }*/
-            else
-            {
-                System.out.println("Invalid area");
-            }
+
+        } else {
+            System.out.println("Invalid area");
         }
+        
         sc.close();
     }
 }
