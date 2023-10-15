@@ -43,3 +43,54 @@ public class Area {
     }
 }
 
+
+/*************************************************************
+public class Grid {
+    private static final int GRID_WIDTH = 5;
+    private static final int GRID_HEIGHT = 1;
+    private int userPosition;
+
+    public Grid() {
+        userPosition = 0; // User starts at position 0
+    }
+
+    public void moveUser() {
+        if (userPosition < GRID_WIDTH - 1) {
+            userPosition++; // Move user to the right
+        } else {
+            System.out.println("You have reached the end of the area!");
+        }
+    }
+
+    public void printGrid() {
+        for (int i = 0; i < GRID_WIDTH; i++) {
+            if (i == userPosition) {
+                System.out.print("X "); // Mark user's position with 'X'
+            } else {
+                System.out.print("_ "); // Empty space
+            }
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Grid grid = new Grid();
+        grid.printGrid(); // Initial grid
+
+        // Move the user through the grid
+        grid.moveUser();
+        grid.printGrid();
+
+        grid.moveUser();
+        grid.printGrid();
+
+        grid.moveUser();
+        grid.printGrid();
+
+        grid.moveUser(); // This will print "You have reached the end of the area!"
+        grid.printGrid();
+    }
+}
+
+ ************************************************************/
+
