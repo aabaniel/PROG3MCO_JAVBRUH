@@ -1,96 +1,114 @@
 import java.util.*;
-
-/*
-Create area class here
-  */
+import java.lang.Thread;
 
 public class Area {
-    private int aType;
-    private int[][] areaGrid;
+    private char[][] areaGrid;
     private int xUser;
     private int yUser;
-
-    public void initializeAreaGrid(int x, int y) {
-        areaGrid = new int[x][y];
-        xUser = 0; 
+    private Random random = new Random();
+    
+    public Area() {
+        /*
+         Area: indicates what type of area would be called 
+         
+         */
+        areaGrid = new char[1][5];
+        xUser = 0;
         yUser = 0;
+        initializeAreaGrid();
     }
 
-    public void userMove() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Which area will you go(1 or 2 or 3?: ");
-        aType = sc.nextInt();
-
-        if (aType == 1) {
-            initializeAreaGrid(5, 1);
-
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 1; j++) {
-                    if (i == xUser && j == yUser) {
-                        System.out.print("[O]");
-                    } else {
-                        System.out.print("[ ]");
-                    }
-                }
-                System.out.println();
+    public void initializeAreaGrid() {
+        /*
+         initializeAreaGrid: initializes the area grid depending on area type
+         */
+        for (int i = 0; i < areaGrid.length; i++) {
+            for (int j = 0; j < areaGrid[0].length; j++) {
+                areaGrid[i][j] = ' ';
             }
-
-        } else {
-            System.out.println("Invalid area");
         }
-        
-        sc.close();
-    }
-}
-
-
-/*************************************************************
-public class Grid {
-    private static final int GRID_WIDTH = 5;
-    private static final int GRID_HEIGHT = 1;
-    private int userPosition;
-
-    public Grid() {
-        userPosition = 0; // User starts at position 0
-    }
-
-    public void moveUser() {
-        if (userPosition < GRID_WIDTH - 1) {
-            userPosition++; // Move user to the right
-        } else {
-            System.out.println("You have reached the end of the area!");
-        }
+        areaGrid[0][0] = '0';
     }
 
     public void printGrid() {
-        for (int i = 0; i < GRID_WIDTH; i++) {
-            if (i == userPosition) {
-                System.out.print("X "); // Mark user's position with 'X'
-            } else {
-                System.out.print("_ "); // Empty space
-            }
+    /*
+     printGrid: Handles printing the areas 
+     */
+        try {
+			Thread.sleep(750);
+		} catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
         }
-        System.out.println();
+        System.out.print("\033\143");
+        for (int i = 0; i < areaGrid.length; i++) {
+            for (int j = 0; j < areaGrid[0].length; j++) {
+                if (i == yUser && j == xUser) {
+                    System.out.print("[ " + areaGrid[i][j] + "X ] ");
+                } else {
+                    System.out.print("[ " + areaGrid[i][j] + " ] ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("You are currently at position (" + (xUser+ 1)  + ", " + (yUser + 1) + ")");
     }
 
-    public static void main(String[] args) {
-        Grid grid = new Grid();
-        grid.printGrid(); // Initial grid
+    public void userMove(ArrayList<Creature> creaturesList, ArrayList<Creature> allCreatures, inventory inv) {
+        /*
+         userMove(creaturesList, allCreatures, inv): This is where user interacts with the areas and moving through them. 
+    
+         */
+        battlePhase bP = new battlePhase(); 
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Which area will you go? (1, 2, 3): ");
+        int aType = sc.nextInt();
 
-        // Move the user through the grid
-        grid.moveUser();
-        grid.printGrid();
+        if (aType == 1) {
+            areaGrid = new char[1][5];
+        } else {
+            System.out.println("Invalid area");
+            return;
+        }
 
-        grid.moveUser();
-        grid.printGrid();
+        while (true) {
+            printGrid();
 
-        grid.moveUser();
-        grid.printGrid();
+            System.out.print("Enter a direction or Exit area(left, right, up, down, or exit): ");
+            String direction = sc.next();
 
-        grid.moveUser(); // This will print "You have reached the end of the area!"
-        grid.printGrid();
+            if (direction.equalsIgnoreCase("left") && xUser > 0) {
+                xUser--;
+                if (random.nextDouble() < 0.4) {
+                    System.out.println("Battle encountered!");
+
+                    bP.bPhase(creaturesList, allCreatures, inv);
+                }
+
+            } else if (direction.equalsIgnoreCase("right") && xUser < areaGrid[0].length - 1) {
+                xUser++;
+                if (random.nextDouble() < 0.4) 
+                System.out.println("Battle encountered!");
+                
+                bP.bPhase(creaturesList, allCreatures, inv);
+
+            } else if (direction.equalsIgnoreCase("up") && yUser > 0) {
+                yUser--;
+                if (random.nextDouble() < 0.4) 
+                System.out.println("Battle encountered!");
+                //call battlephase class here when phase 2
+
+            } else if (direction.equalsIgnoreCase("down") && yUser < areaGrid.length - 1) {
+                yUser++;
+                if (random.nextDouble() < 0.4) 
+                System.out.println("Battle encountered!");
+                //call battlephase class here when phase 2
+
+            } else if (direction.equalsIgnoreCase("exit")) {
+                return;
+                
+            } else {
+                System.out.println("Invalid move.");
+            }
+            }
+        }   
     }
-}
-
- ************************************************************/
-
