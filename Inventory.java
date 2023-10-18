@@ -1,75 +1,93 @@
+import java.util.*;
+
 public class inventory {
     
-    ArrayList<Creature> creaturesList = new ArrayList<Creature>(); 
-
-    private int inventorySelect;
     private String creatureInput; 
 
-
-    /***************************************************************
-     For adding a new creature to the array list:
-    Creature newCreature = new Creature(//insert creature deets here);
-    creaturesList.add(newCreature);
-
-     For accessing: Creature newCreature = creaturesList.get(0);
-     For Displaying the Creatures: System.out.println("Creature 1:" + firstCreature.getName() + firstCreature.getType() + firstCreature.getFamily() + firstCreature.getEL())
-
-
-    *****************************************************************/
-    
-    
-    private int getInventoryInput()
+    public void getInventoryInput(ArrayList<Creature> creaturesList)
+    /*
+     getInventoryInput(creaturesList):Handles getting the user to choose where to move inside inventory
+      
+     */
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("[1] VIEW CREATURES");
-        System.out.println("[2] CHANGE ACTIVE CREATURE");
-        System.out.println("[3] EXIT INVENTORY");
+        boolean cChoice = false;
+        Scanner sc = new Scanner(System.in);
 
-        int inventorySelect = scanner.nextInt();
+      while(!cChoice)
+      {
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("[1] View Creatures");
+            System.out.println("[2] Change Active Creature");
+            System.out.println("[3] Exit Inventory");
+            System.out.println("---------------------------------------------------------------");
+          System.out.println("Enter your choice: ");
+          String choice = sc.nextLine();
+          
 
-        if (inventorySelect == 1)
-        {
-        showCreatures();
-        }
-        else if (inventorySelect == 2)
-        {
-        selectActive();
-        }
-        else if (inventorySelect == 3)
-        {
-        //exit idk 
-        }
+          switch(choice)
+          {
+              case "1": 
+                  showCreatures(creaturesList);
+                  break;
+              case "2":
+                  selectActive(creaturesList);
+                  break;
+              case "3":
+                  cChoice = true;
+                  
+                  break;
 
-        while(inventorySelect < 1 || inventorySelect > 3)
-        {
-            System.out.println("Invalid Selection, please only input 1-3");
-            inventorySelect = scanner.nextInt();
-        }
-        scanner.close();
+              default:
+                  System.out.println("Invalid Selection, please only input 1-3");
+          }
+      }
+        
     }
 
 
-    private void selectActive()
+    public void selectActive(ArrayList<Creature> creaturesList)
+    /*
+     selectActive(creaturesList): Lets the user choose their active creature 
+     
+     */
     {
     Scanner scanner1 = new Scanner(System.in);
 
     System.out.println("Which Creature Would you Like to Set as Active?");
-    System.out.println("Input the Creature name here:");
-    creatureInput = scanner1.nextLine();
+  
 
     boolean cFound = false; 
-
+     
     
     while (!cFound) {
         System.out.println("Enter the name of the creature: ");
         creatureInput = scanner1.nextLine();
+        
+        
 
         for (Creature creature : creaturesList) {
-            if (creatureInput.equalsIgnoreCase(creature.cName)) {
-                System.out.println("Creature found, Type: " + creature.cType + ", Health: " + creature.cEvLvl);
-                creature.IsActive = true; 
+            if (creatureInput.equalsIgnoreCase(creature.getcName()) && !creature.getIsActive()) {
+                for(Creature creature2 :creaturesList)
+                {
+                    if(creature2.getIsActive())
+                    {
+                    creature2.setIsActive(false);
+                    }
+                }
+                System.out.println("Creature found, Type: " + creature.getcType() + ", Health: " + creature.getcHealth());
+                creature.setIsActive(true); 
                 cFound = true;
+                
                 break;
+
+            }
+            else if (creatureInput.equalsIgnoreCase(creature.getcName()) && creature.getIsActive())
+            {
+            System.out.println("Creature found, Type: " + creature.getcType() + ", Health: " + creature.getcHealth());
+            System.out.println("Already Active!");
+            cFound = true;
+            break;
+
             }
         }
 
@@ -77,28 +95,27 @@ public class inventory {
             System.out.println("Creature not found in the list. Please try again.");
         }
         }
-        scanner1.close();
+       
     }
 
-    private void showCreatures()
+    public static void showCreatures(ArrayList<Creature> creaturesList)
+    /*
+     showCreatures(creaturesList): shows all of the user creatures 
+     
+     */
     {
-     //For Displaying the Creatures: 
-     //Creature newCreature = creaturesList.get(0);
-     //System.out.println("Creature 1:" + firstCreature.getName() + firstCreature.getType() + firstCreature.getFamily() + firstCreature.getEL())
+        System.out.println("Showing All Creatures:");
 
-    System.out.println("Showing All Creatures:");
-
-    for (Creature creature : creaturesList) {
-        if (creature.isActive) 
-        {
-            System.out.println("Currently Active: " + creature.cName + " - Type: " + creature.cType + ", Family: " + creature.cFam + ", EL: " + creature.cEvLvl);
-        } else
-         {
-            System.out.println(creature.cName + " - Type: " + creature.cType + ", Family: " + creature.cFam + ", EL: " + creature.cEvLvl);
+        for (Creature creature : creaturesList) {
+            if (creature.getIsActive()) 
+            {
+                System.out.println("Currently Active: " + creature.getcName() + " - Type: " + creature.getcType() + ", Family: " + creature.getcFam() + ", EvL: " + creature.getcEvLvl());
+            } else
+            {
+                System.out.println(creature.getcName() + " - Type: " + creature.getcType() + ", Family: " + creature.getcFam() + ", EL: " + creature.getcEvLvl());
+            }
         }
-        }
-
-    }   
-
+    }
 }
+
 
