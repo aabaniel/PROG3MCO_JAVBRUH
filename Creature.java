@@ -1,19 +1,30 @@
-/*
-Implement a creature class here
-*/
-public class creature {
-    private String cName;
-    private String cType;
-    private String cFam;
-    private Integer cHealth;
-    private Integer cEvLvl;
-    private Boolean IsAlive;
-    private Boolean IsEnemy;
-    private Boolean IsActive;
+
+public class Creature {
+    /*
+     Creature: contains setters and getters for creature object.  
+     
+     */
+    public String cName;
+    public String cType;
+    public String cFam;
+    public Integer cHealth;
+    public Integer cEvLvl;
+    public Boolean IsEnemy;
+    public Boolean IsActive;
+
+    
+   
+    
+   
+    
+
+    
 
     public void setcName(String cName) {
         this.cName = cName;
     }
+    
+    
     public String getcName() {
         return cName;
     }
@@ -47,12 +58,8 @@ public class creature {
     public Boolean getIsActive() {
         return IsActive;
     }
-    public void setIsAlive(Boolean isAlive) {
-        IsAlive = isAlive;
-    }
-    public Boolean getIsAlive() {
-        return IsAlive;
-    }
+   
+    
     public void setIsEnemy(Boolean isEnemy) {
         IsEnemy = isEnemy;
     }
